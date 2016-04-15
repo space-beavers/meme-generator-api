@@ -11,7 +11,7 @@ img {
 
 .meme-text {
   	position:absolute;
-    left: 24px;
+    width: 300px;
 	margin: 0;
 	padding: 0;
 	font-size: 34px;
