@@ -1,31 +1,23 @@
-html, body {
-    height: 300px;
-}
-body {
-    margin: 0;
+#meme-card {
+	position: relative;
+	width: 300px;
+	height: 300px;
 }
 
 img {
-    width: 300px;
-    height: 300px;
-}
-
-.flex-container {
-    width: 300px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
+	width: 300px;
+	height: 300px;
 }
 
 .meme-text {
-    position:absolute;
-	margin: auto;
-    width: 100%;
+  	position:absolute;
+    left: 24px;
+	margin: 0;
 	padding: 0;
 	font-size: 34px;
     color: white;
     padding: 0;
-    max-width: 300px;
+    max-width: 350px;
     max-height: 200px;
     font-family: Impact, Charcoal, sans-serif;
     font-weight: 900;
@@ -50,9 +42,9 @@ img {
 }
 
 .meme-header {
-    top: 12px;
+	top: 14px;
 }
 
 .meme-footer {
-    top: 246px;
+	bottom: 14px;
 }
