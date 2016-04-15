@@ -4,16 +4,17 @@ html, body {
 body {
     margin: 0;
 }
+
+img {
+    width: 300px;
+    height: 300px;
+}
+
 .flex-container {
     width: 300px;
     height: 300px;
     display: flex;
     flex-direction: column;
-}
-
-img {
-	width: 300px;
-	height: 300px;
 }
 
 .meme-text {
