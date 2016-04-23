@@ -31,8 +31,8 @@ router.post('/', function (req, res) {
 
 	var screenShotOpts = {
 		shotSize: {
-			width: 300,
-			height: 300
+			width: 500,
+			height: 500
 		}
 	};
 
