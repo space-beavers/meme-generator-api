@@ -1,29 +1,28 @@
 #meme-card {
 	position: relative;
-	width: 300px;
-	height: 300px;
+	width: 500px;
+	height: 500px;
 }
 
 img {
-	width: 300px;
-	height: 300px;
+	width: 500px;
+	height: 500px;
 }
 
 .meme-text {
   	position:absolute;
-    width: 300px;
+    width: 500px;
 	margin: 0;
 	padding: 0;
 	font-size: 34px;
     color: white;
     padding: 0;
-    max-width: 350px;
+    max-width: 550px;
     max-height: 200px;
     font-family: Impact, Charcoal, sans-serif;
     font-weight: 900;
     text-transform: uppercase;
     text-align: center;
-    -webkit-text-stroke: 1px black;
     text-shadow:
             2px 2px 0 #000,
               /* Simulated effect for Firefox and Opera
