@@ -5,6 +5,7 @@ var router = express.Router();
 var tmp = require('tmp');
 var shorturl = require('shorturl');
 var webshot = require('webshot');
+var validator = require('././Utils/validator');
 
 /**
  * Take in image, header and footer text and re-create the meme image, save and return a shortUrl.
@@ -13,9 +14,10 @@ var webshot = require('webshot');
  * @param headerText
  * @param footerText
  */
-router.post('/', function (req, res) {
-	if (!req.body || !req.body.imageUrl || !req.body.headerText || !req.body.footerText) return res.sendStatus(400);
+router.post('/', function (req, res, next) {
 
+	validator.validateIncomingMessage(req,res,next);
+    
 	var imageUrl = req.body.imageUrl;
 	var headerText = req.body.headerText;
 	var footerText = req.body.footerText;
@@ -37,6 +39,9 @@ router.post('/', function (req, res) {
 	};
 
 	webshot(memeCardUrl, outputFileName, screenShotOpts, function(err) {
+		if(err){
+			next(err);
+		}
 		var fullUrlToLongFileName = req.protocol + '://' + req.get('host') + outputFileName.replace('./public', '');
 	  	shorturl(fullUrlToLongFileName, function(shortUrl) {
 			res.send({

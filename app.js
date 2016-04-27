@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var routes = require('./routes/index');
 var memesRoutes = require('./routes/memes');
 
+
 var app = express();
 
 app.use(cors());
@@ -27,7 +28,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/memes', memesRoutes);
+app.use('/memes', routes);
+app.use('/mp', routes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
