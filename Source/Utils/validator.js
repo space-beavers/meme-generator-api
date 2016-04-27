@@ -6,8 +6,6 @@ function validate( req, res, next) {
             "image selected for the imageUrl.  Check your values again.");
         next(err);
     }
-    
-    
 }
 
 

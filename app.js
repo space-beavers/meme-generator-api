@@ -28,8 +28,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/memes', routes);
-app.use('/mp', routes);
+app.use('/memes', memesRoutes);
+
 
 
 // catch 404 and forward to error handler

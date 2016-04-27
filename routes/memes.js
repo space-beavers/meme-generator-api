@@ -5,7 +5,8 @@ var router = express.Router();
 var tmp = require('tmp');
 var shorturl = require('shorturl');
 var webshot = require('webshot');
-var validator = require('././Utils/validator');
+var validator = require('./../source/Utils/validator');
+require("./../source/Utils/UriBuilder");
 
 /**
  * Take in image, header and footer text and re-create the meme image, save and return a shortUrl.
@@ -18,11 +19,8 @@ router.post('/', function (req, res, next) {
 
 	validator.validateIncomingMessage(req,res,next);
     
-	var imageUrl = req.body.imageUrl;
-	var headerText = req.body.headerText;
-	var footerText = req.body.footerText;
-
-	var memeCardUrl = req.protocol + '://' + req.get('host') + '/memes?' + 'imageUrl=' + imageUrl + '&headerText=' + headerText + '&footerText=' + footerText;
+	var uriBuilder = new ImageUriBuilder(req.body.imageUrl, req.body.headerText, req.body.footerText);
+	var memeCardUrl = uriBuilder.buildMemeUri(req.protocol, req.host)
 
 	var tmpName = tmp.tmpNameSync({
 		template: '/memes/meme-XXXXXXXXX',
