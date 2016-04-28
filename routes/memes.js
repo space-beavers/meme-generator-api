@@ -6,8 +6,8 @@ var tmp = require('tmp');
 var shorturl = require('shorturl');
 var webshot = require('webshot');
 var validator = require('./../source/Utils/validator');
-var imageDimensions = require('./../source/Utils/ImageDimensions');
-require("./../source/Utils/UriBuilder");
+var cssFileResolver = require('./../source/Utils/CssFileResolver');
+
 
 /**
  * Take in image, header and footer text and re-create the meme image, save and return a shortUrl.
@@ -29,14 +29,11 @@ router.post('/', function (req, res, next) {
 	});
 
 	var outputFileName = './public/uploads' + tmpName + '.png';
-
-    //todo : Make this an querystring argument ie(req.query["size"]) and publish sm,md,or lg to documentation.
-    //todo: Users should be able to choose sizes
-	var imageDimensions = new ImageDimensions().SetSize("md");  //setting medium as default
+    
 	var screenShotOpts = {
 		shotSize: {
-			width: imageDimensions.x,
-			height: imageDimensions.y
+			width: 500,
+			height: 500
 		}
 	};
 
@@ -59,10 +56,14 @@ router.post('/', function (req, res, next) {
  */
 router.get('/', function(req, res, next) {
 
+    var cssDimensionsFile = cssFileResolver.cssFileResolver;
+    cssDimensionsFile.setFile(req.query.size);  //setting medium as default
+    
   res.render('meme', {
   	headerText: req.query.headerText,
   	footerText: req.query.footerText,
-  	imageUrl: req.query.imageUrl
+  	imageUrl: req.query.imageUrl, 
+    cssFile: cssDimensionsFile.cssFile
   });
 });
 
