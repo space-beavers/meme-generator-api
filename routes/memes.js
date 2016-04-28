@@ -5,8 +5,8 @@ var router = express.Router();
 var tmp = require('tmp');
 var shorturl = require('shorturl');
 var webshot = require('webshot');
-var validator = require('./../source/Utils/validator');
-var cssFileResolver = require('./../source/Utils/CssFileResolver');
+var validator = require('./../source/validator');
+var cssFileResolver = require('./../source/CssFileResolver');
 
 
 /**
