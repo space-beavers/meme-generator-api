@@ -6,6 +6,7 @@ var tmp = require('tmp');
 var shorturl = require('shorturl');
 var webshot = require('webshot');
 var validator = require('./../source/Utils/validator');
+var imageDimensions = require('./../source/Utils/ImageDimensions');
 require("./../source/Utils/UriBuilder");
 
 /**
@@ -29,10 +30,13 @@ router.post('/', function (req, res, next) {
 
 	var outputFileName = './public/uploads' + tmpName + '.png';
 
+    //todo : Make this an querystring argument ie(req.query["size"]) and publish sm,md,or lg to documentation.
+    //todo: Users should be able to choose sizes
+	var imageDimensions = new ImageDimensions().SetSize("md");  //setting medium as default
 	var screenShotOpts = {
 		shotSize: {
-			width: 500,
-			height: 500
+			width: imageDimensions.x,
+			height: imageDimensions.y
 		}
 	};
 
