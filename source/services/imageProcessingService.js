@@ -18,7 +18,7 @@ ImageProcessingService.prototype.Setup = function () {
         outputFileName: './public/uploads' + tmpName + '.png', 
         screenShotOpts: {
             shotSize: {
-                width: 500,
+                width: 500, 
                 height: 500
             }
         }
