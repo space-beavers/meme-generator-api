@@ -2,11 +2,12 @@
 
 var express = require('express');
 var router = express.Router();
-var tmp = require('tmp');
+
 var shorturl = require('shorturl');
 var webshot = require('webshot');
-var validator = require('./../source/validator');
-var cssFileResolver = require('./../source/CssFileResolver');
+var imageProcessingService = require('./../source/services/imageProcessingService');
+var validator = require('./../source/utils/validator');
+var cssFileResolver = require('./../source/utils/CssFileResolver');
 
 
 /**
@@ -18,26 +19,10 @@ var cssFileResolver = require('./../source/CssFileResolver');
  */
 router.post('/', function (req, res, next) {
 
-	validator.validateIncomingMessage(req,res,next);
-    
-	var uriBuilder = new ImageUriBuilder(req.body.imageUrl, req.body.headerText, req.body.footerText);
-	var memeCardUrl = uriBuilder.buildMemeUri(req.protocol, req.host)
+	validator.validateIncomingMessage(req,next);
+	var setup = imageProcessingService.imageProcessingService(req).Setup();
 
-	var tmpName = tmp.tmpNameSync({
-		template: '/memes/meme-XXXXXXXXX',
-		keep: true
-	});
-
-	var outputFileName = './public/uploads' + tmpName + '.png';
-    
-	var screenShotOpts = {
-		shotSize: {
-			width: 500,
-			height: 500
-		}
-	};
-
-	webshot(memeCardUrl, outputFileName, screenShotOpts, function(err) {
+	webshot(setup.memeCardUrl, setup.outputFileName, setup.screenShotOpts, function(err) {
 		if(err){
 			next(err);
 		}
