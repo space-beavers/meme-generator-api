@@ -4,9 +4,22 @@
 	height: 1000px;
 }
 
-img {
+img.meme {
 	width: 1000px;
 	height: 1000px;
+}
+
+img.watermark {
+    z-index:0;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    margin-top: 950px;
+    margin-right:0px;
+    margin-left: 950px;
+    margin-bottom: 0px;
+    opacity: .3;
+
 }
 
 .meme-text {
@@ -24,13 +37,13 @@ img {
     text-transform: uppercase;
     text-align: center;
     text-shadow:
-            2px 2px 0 #000,
+            4px 4px 0 #000,
               /* Simulated effect for Firefox and Opera
                  and nice enhancement for WebKit */
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px  1px 0 #000,
-            1px  1px 0 #000;
+            -2px -2px 0 #000,
+            2px -2px 0 #000,
+            -2px  2px 0 #000,
+            2px  2px 0 #000;
     /* If you want your things to swipe nicely, you might want to disable
      * text selection on those elements. */
     -moz-user-select: none;

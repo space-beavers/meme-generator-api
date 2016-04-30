@@ -5,7 +5,9 @@ html
     link(rel='stylesheet', href='/css/#{cssFile}')
   body
     #meme-card
-      img(src='#{imageUrl}')
+      img(src='/images/space_beaver.png',class="watermark")
+      img(src='#{imageUrl}',class='meme')
       p.meme-text.meme-header #{headerText}
       p.meme-text.meme-footer #{footerText}
+
 
