@@ -5,10 +5,10 @@ var router = express.Router();
 
 var shorturl = require('shorturl');
 var webshot = require('webshot');
-var imageProcessingService = require('./../source/services/imageProcessingService');
+var ips = require("./../source/services/imageProcessing/imageProcessingService");
 var validator = require('./../source/utils/validator');
 var cssFileResolver = require('./../source/utils/CssFileResolver');
-
+var q = require("q");
 
 /**
  * Take in image, header and footer text and re-create the meme image, save and return a shortUrl.
@@ -17,22 +17,33 @@ var cssFileResolver = require('./../source/utils/CssFileResolver');
  * @param headerText
  * @param footerText
  */
+
 router.post('/', function (req, res, next) {
 
 	validator.validateIncomingMessage(req,next);
-	var setup = imageProcessingService.imageProcessingService(req).Setup();
+    var result;
+     ips.setup(req).then( function(fulfilled) {
+        result = fulfilled;
+    }).end(function(){
+        if(result) {
+            webshot(result.memeCardUrl, result.outputFileName, result.screenShotOpts, function(err) {
+                if(err){
+                    next(err);
+                }
+                var fullUrlToLongFileName = req.protocol + '://' + req.get('host') + outputFileName.replace('./public', '');
+                shorturl(fullUrlToLongFileName, function(shortUrl) {
+                    res.send({
+                        imageURL: shortUrl
+                    });
+                });
+            });
+        }
 
-	webshot(setup.memeCardUrl, setup.outputFileName, setup.screenShotOpts, function(err) {
-		if(err){
-			next(err);
-		}
-		var fullUrlToLongFileName = req.protocol + '://' + req.get('host') + outputFileName.replace('./public', '');
-	  	shorturl(fullUrlToLongFileName, function(shortUrl) {
-			res.send({
-				imageURL: shortUrl
-			});
-		});
-	});
+    });
+
+
+
+
 
 });
 

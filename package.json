@@ -17,6 +17,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
     "node-base64-image": "^0.1.2",
+    "q": "^1.4.1",
     "serve-favicon": "~2.3.0",
     "shorturl": "0.0.3",
     "tmp": "0.0.28",

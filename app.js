@@ -30,6 +30,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/memes', memesRoutes);
 
+app.locals = {
+  
+  QS_CATEGORY: "category",
+  QS_IMAGEURL: "imageUrl",
+  QS_HEADERTEXT: "headerText",
+  QS_FOOTERTEXT: "footerText",
+
+  DefaultPublicFolder: "pub"
+};
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

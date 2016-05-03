@@ -30,4 +30,4 @@ var CssFileResolver = {
     }
 };
 
-exports.cssFileResolver = CssFileResolver;
+module.exports.cssFileResolver = CssFileResolver;
