@@ -20,28 +20,27 @@ var q = require("q");
 
 router.post('/', function (req, res, next) {
 
-	validator.validateIncomingMessage(req,next);
-  var result;
-  ips.setup(req).then( function(fulfilled) {
-      result = fulfilled;
-      console.log('request fulfilled', result);
-  }).end(function() {
-      console.log('end called', result);
-      if(result) {
-          webshot(result.memeCardUrl, result.outputFileName, result.screenShotOpts, function(err) {
-              if(err) {
-                  next(err);
-              }
-              var fullUrlToLongFileName = req.protocol + '://' + req.get('host') + outputFileName.replace('./public', '');
-              shorturl(fullUrlToLongFileName, function(shortUrl) {
-                  res.send({
-                      imageURL: shortUrl
-                  });
-              });
-          });
-      }
+  validator.validateIncomingMessage(req,next);
+    var result;
 
-  });
+     ips.setup(req).then( function(fulfilled) {
+        result = fulfilled;
+    }).end(function(){
+        if(result) {
+            webshot(result.memeCardUrl, result.outputFileName, result.screenShotOpts, function(err) {
+                if(err){
+                    next(err);
+                }
+                var fullUrlToLongFileName = req.protocol + '://' + req.get('host') + outputFileName.replace('./public', '');
+                shorturl(fullUrlToLongFileName, function(shortUrl) {
+                    res.send({
+                        imageURL: shortUrl
+                    });
+                });
+            });
+        }
+
+    });
 });
 
 /**
@@ -53,9 +52,9 @@ router.get('/', function(req, res, next) {
     cssDimensionsFile.setFile(req.query.size);  //setting medium as default
 
   res.render('meme', {
-  	headerText: req.query.headerText,
-  	footerText: req.query.footerText,
-  	imageUrl: req.query.imageUrl,
+    headerText: req.query.headerText,
+    footerText: req.query.footerText,
+    imageUrl: req.query.imageUrl,
     cssFile: cssDimensionsFile.cssFile
   });
 });
