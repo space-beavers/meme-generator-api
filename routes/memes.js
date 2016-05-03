@@ -22,6 +22,7 @@ router.post('/', function (req, res, next) {
 
 	validator.validateIncomingMessage(req,next);
     var result;
+    
      ips.setup(req).then( function(fulfilled) {
         result = fulfilled;
     }).end(function(){
