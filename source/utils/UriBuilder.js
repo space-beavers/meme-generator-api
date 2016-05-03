@@ -1,10 +1,12 @@
-function buildMemeUri(req) {
-    return req.protocol + '://' + req.get('host') + '/memes?'
-        + constants.QS_IMAGEURL + '=' + this.imageUrl
-        + '&' + constants.QS_HEADERTEXT + '=' + this.headerText
-        + '&' + constants.QS_FOOTERTEXT + '=' + this.footerText;
-};
 
+
+function buildMemeUri(req, imageUrl, headerText, footerText) {
+    var uri = req.protocol + '://' + req.get('host') + '/memes?'
+        + req.app.locals.QS_IMAGEURL + '=' + req.body.imageUrl
+        + '&' + req.app.locals.QS_HEADERTEXT + '=' + req.body.headerText
+        + '&' + req.app.locals.QS_FOOTERTEXT + '=' + req.body.footerText;
+    return uri;
+};
 
 module.exports = {
     BuildMemeUri: buildMemeUri

@@ -1,22 +1,30 @@
 var tmp = require('tmp');
 var iub = require('./../../utils/UriBuilder');
 var cr = require('./../../utils/CategoryResolver');
-var q = require('q');
+var Q = require('q');
 
 function imageProcessingSetup(req) {
-    var deferrer = q.defer();
-    // cr.createIfDirectoryDoesNotExist(req.body.category ? req.body.category : req.app.locals.DefaultPublicFolder).then(function (resolve) {
+    var deferred = Q.defer();
 
+    // set cat to either user supplied or our default
     var category = (req.body.category) ? req.body.category : req.app.locals.DefaultPublicFolder;
-    console.log('USING CATEGORY', category);
-    var result = {
-        memeCardUrl: iub.ImageUriBuilder.buildMemeUri(req),
 
-        tmpName: tmp.tmpNameSync({
-            template: category + '/memes/meme-XXXXXXXXX',
-            keep: true
-        }),
-        outputFileName: './public/images/category/' + tmpName + '.png',
+    var tmpFileName = tmp.tmpNameSync({
+        template: category + '/meme-XXXXXXXXX',
+        keep: true
+    });
+
+    var pathToSavedFile = '/uploads/memes/category/' + tmpFileName + '.png';
+
+    var result = {
+        // local output file path
+        outputFileName: './public' + pathToSavedFile,
+        // url for our own app to take a snapshot from
+        memeCardUrl: iub.BuildMemeUri(req),
+        // the url that we saved the snapshot to
+        savedFileUrl: req.protocol + '://' + req.get('host') + pathToSavedFile,
+
+        // meme screenshot config
         screenShotOpts: {
             shotSize: {
                 width: 500,
@@ -24,11 +32,10 @@ function imageProcessingSetup(req) {
             }
         }
     };
-    deferrer.resolve(result);
 
-    // }, function(reject){
-    //     throw Error(reject);
-    // });
+    deferred.resolve(result);
+
+    return deferred.promise;
 };
 
 module.exports = {
