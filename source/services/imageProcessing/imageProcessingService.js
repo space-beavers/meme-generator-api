@@ -1,6 +1,5 @@
 var tmp = require('tmp');
 var iub = require('./../../utils/UriBuilder');
-var cr = require('./../../utils/CategoryResolver');
 var Q = require('q');
 
 function imageProcessingSetup(req) {
