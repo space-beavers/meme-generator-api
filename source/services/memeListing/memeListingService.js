@@ -3,12 +3,14 @@
 var fs = require('fs');
 var path = require('path');
 
+var iub = require('../../utils/UriBuilder');
+
 /**
  * Reads a category folder and returns the listings as an array of objects...
  * NOTE: Synchronous
  * @param category Folder name where memes are stored.
  */
-function memeListingFromFolder(category) {
+function memeListingFromFolder(req, category) {
     var memesFolderPath = './public/uploads/memes/category/' + category;
 
     var memesResult = [];
@@ -16,7 +18,7 @@ function memeListingFromFolder(category) {
     var files = fs.readdirSync(memesFolderPath);
     for (var i in files) {
         memesResult.push({
-            url: files[i]
+            url: iub.BuildCategoryUri(req, category, files[i])
         });
     }
     return memesResult;

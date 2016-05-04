@@ -62,7 +62,7 @@ router.get('/', function(req, res, next) {
     }
 
     res.send({
-        memes: mls.getCategoryAsArray(req.query.category)
+        memes: mls.getCategoryAsArray(req, req.query.category)
     });
 });
 

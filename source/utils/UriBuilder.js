@@ -8,6 +8,16 @@ function buildMemeUri(req, imageUrl, headerText, footerText) {
     return uri;
 };
 
+function buildCategoryUri(req, category, imageName) {
+	 var uri = req.protocol + '://' + req.get('host') +
+	 		   '/uploads/memes/category/'
+	 		   + category +
+	 		   '/'
+	 		   + imageName;
+    return uri;
+}
+
 module.exports = {
-    BuildMemeUri: buildMemeUri
+    BuildMemeUri: buildMemeUri,
+    BuildCategoryUri: buildCategoryUri
 };
