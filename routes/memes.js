@@ -61,8 +61,10 @@ router.get('/', function(req, res, next) {
         });
     }
 
-    res.send({
-        memes: mls.getCategoryAsArray(req, req.query.category)
+    mls.getCategoryAsArray(req, req.query.category).done(function(memesData) {
+        res.send({
+            memes: memesData
+        });
     });
 });
 
